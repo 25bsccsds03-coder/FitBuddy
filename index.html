@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>FitBuddy AI</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 30px 15px;
+            font-family: Arial, sans-serif;
+            background: #f5efd5;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .header h1 {
+            margin-bottom: 8px;
+            font-size: 32px;
+        }
+
+        .header p {
+            color: #666;
+            font-size: 16px;
+        }
+
+        .card {
+            background: white;
+            padding: 28px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.12);
+        }
+
+        .card h2 {
+            margin-top: 0;
+        }
+
+        label {
+            display: block;
+            margin-top: 18px;
+            margin-bottom: 7px;
+            font-weight: bold;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #ccc;
+            border-radius: 7px;
+            font-size: 15px;
+            background: white;
+        }
+
+        #generateBtn {
+            width: 100%;
+            margin-top: 25px;
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            background: #555f73;
+            color: white;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        #generateBtn:hover {
+            opacity: 0.85;
+        }
+
+        #result {
+            margin-top: 25px;
+        }
+
+        .plan-card {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.12);
+        }
+
+        .plan-card h2 {
+            margin-top: 0;
+        }
+
+        .plan-card h3 {
+            margin-top: 22px;
+        }
+
+        .plan-card li {
+            margin-bottom: 10px;
+        }
+
+        .success {
+            margin-top: 20px;
+            padding: 12px;
+            border-radius: 8px;
+            background: #e8f5e9;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <!-- HEADER -->
+
+        <div class="header">
+
+            <h1>FitBuddy 🏃</h1>
+
+            <p>
+                AI Fitness & Wellness Plan Generator
+            </p>
+
+        </div>
+
+
+        <!-- FORM -->
+
+        <div class="card">
+
+            <h2>Enter Your Details</h2>
+
+
+            <label for="age">
+                Age
+            </label>
+
+            <input
+                type="number"
+                id="age"
+                placeholder="Enter your age"
+                min="1"
+                max="100"
+            >
+
+
+            <label for="goal">
+                Fitness Goal
+            </label>
+
+            <select id="goal">
+
+                <option value="General Fitness">
+                    General fitness
+                </option>
+
+                <option value="Weight Loss">
+                    Weight loss
+                </option>
+
+                <option value="Improve Strength">
+                    Improve strength
+                </option>
+
+                <option value="Build Muscle">
+                    Build muscle
+                </option>
+
+                <option value="Improve Flexibility">
+                    Improve flexibility
+                </option>
+
+            </select>
+
+
+            <label for="activity">
+                Activity Level
+            </label>
+
+            <select id="activity">
+
+                <option value="Beginner">
+                    Beginner
+                </option>
+
+                <option value="Intermediate">
+                    Intermediate
+                </option>
+
+                <option value="Advanced">
+                    Advanced
+                </option>
+
+            </select>
+
+
+            <label for="days">
+                Days Available Per Week
+            </label>
+
+            <input
+                type="number"
+                id="days"
+                placeholder="Example: 4"
+                min="1"
+                max="7"
+            >
+
+
+            <label for="time">
+                Time Available Per Session
+            </label>
+
+            <select id="time">
+
+                <option value="15 minutes">
+                    15 minutes
+                </option>
+
+                <option value="30 minutes">
+                    30 minutes
+                </option>
+
+                <option value="45 minutes">
+                    45 minutes
+                </option>
+
+                <option value="60 minutes">
+                    60 minutes
+                </option>
+
+            </select>
+
+
+            <!-- BUTTON -->
+
+            <button
+                type="button"
+                id="generateBtn"
+            >
+                Generate My Plan
+            </button>
+
+        </div>
+
+
+        <!-- RESULT -->
+
+        <div id="result"></div>
+
+    </div>
+
+
+    <!-- JAVASCRIPT -->
+
+    <script>
+
+        const button = document.getElementById("generateBtn");
+
+
+        button.addEventListener("click", function () {
+
+            const age =
+                document.getElementById("age").value.trim();
+
+            const goal =
+                document.getElementById("goal").value;
+
+            const activity =
+                document.getElementById("activity").value;
+
+            const days =
+                document.getElementById("days").value.trim();
+
+            const time =
+                document.getElementById("time").value;
+
+
+            /* CHECK AGE */
+
+            if (age === "") {
+
+                alert("Please enter your age.");
+
+                document.getElementById("age").focus();
+
+                return;
+            }
+
+
+            /* CHECK DAYS */
+
+            if (days === "") {
+
+                alert("Please enter the number of days per week.");
+
+                document.getElementById("days").focus();
+
+                return;
+            }
+
+
+            /* RESULT */
+
+            const result =
+                document.getElementById("result");
+
+
+            result.innerHTML = `
+
+                <div class="plan-card">
+
+                    <h2>
+                        Your FitBuddy Plan 🎯
+                    </h2>
+
+
+                    <p>
+                        <strong>Age:</strong>
+                        ${age}
+                    </p>
+
+
+                    <p>
+                        <strong>Fitness Goal:</strong>
+                        ${goal}
+                    </p>
+
+
+                    <p>
+                        <strong>Activity Level:</strong>
+                        ${activity}
+                    </p>
+
+
+                    <p>
+                        <strong>Days Per Week:</strong>
+                        ${days}
+                    </p>
+
+
+                    <p>
+                        <strong>Time Per Session:</strong>
+                        ${time}
+                    </p>
+
+
+                    <h3>
+                        Weekly Workout Plan
+                    </h3>
+
+
+                    <ul>
+
+                        <li>
+                            Day 1 – Full Body Workout
+                        </li>
+
+                        <li>
+                            Day 2 – Walking & Cardio
+                        </li>
+
+                        <li>
+                            Day 3 – Rest & Stretching
+                        </li>
+
+                        <li>
+                            Day 4 – Strength Training
+                        </li>
+
+                        <li>
+                            Day 5 – Light Cardio
+                        </li>
+
+                    </ul>
+
+
+                    <h3>
+                        Healthy Tips
+                    </h3>
+
+
+                    <ul>
+
+                        <li>
+                            Drink enough water.
+                        </li>
+
+                        <li>
+                            Eat balanced meals.
+                        </li>
+
+                        <li>
+                            Get enough sleep.
+                        </li>
+
+                        <li>
+                            Stay consistent with exercise.
+                        </li>
+
+                    </ul>
+
+
+                    <div class="success">
+                        ✅ Your FitBuddy plan has been generated successfully!
+                    </div>
+
+                </div>
+
+            `;
+
+        });
+
+    </script>
+
+</body>
+</html>
