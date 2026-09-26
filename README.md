@@ -1,11 +1,12 @@
-# FitBuddy AI
+# Fit Buddy AI
 
 ## Team
 
 ### Team Leader
-- G.Sona
+- Santhosh S
 
 ### Team Members
-- K.Sathyapriya
-- T.Sandhiya
-- A.Sandhiya
+- Sanjay Kumar
+- Sanjay
+- Samuel
+- Sai shoban babu
