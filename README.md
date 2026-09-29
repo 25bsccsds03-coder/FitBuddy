@@ -3,9 +3,10 @@
 ## Team
 
 ### Team Leader
-- G.Sona
+- S Santhosh 
 
 ### Team Members
-- K.Sathyapriya
-- T.Sandhiya
-- A.Sandhiya
+  M Sanjay Kumar 
+  S Sai Shoban Babu 
+  U Samuel 
+  Sanjay 
